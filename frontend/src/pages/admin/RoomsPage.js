@@ -1,32 +1,36 @@
-import React from "react";
+import React, {useState} from "react";
 import ReactGA from "react-ga";
-import { Context } from "../../contexts/UserProvider";
-import { Container, Menu } from "semantic-ui-react";
+import { Container, Menu, Icon, Button } from "semantic-ui-react";
+import RoomConfig from "../../components/admin/venue_booking/RoomConfig";
+import RoomCreationForm from "../../components/admin/venue_booking/RoomCreationForm";
 
-class RoomsPage extends React.Component {
-  static contextType = Context;
-
-  constructor(props) {
-    super(props);
+function RoomsPage(props) { 
     ReactGA.pageview("/admin/rooms");
-  }
+    const [creating, setCreating] = useState(false);
 
-  render() {
     return (
-      <main className="admin-rooms-page">
-        <Menu size="huge"></Menu>
-        <br />
-        <br />
-        <Container>
-          <h1 style={{ color: "#FDFDFD" }}>Configure Rooms</h1>
-          {/* <RoomConfig /> */}
-        </Container>
-        <br />
-        <br />
-        <br />
-      </main>
+        <main> 
+            <Menu size="huge"></Menu>
+            <br />
+            <br />
+            <Container>
+                <Button fluid animated="fade" onClick={(e) => setCreating(!creating)}>
+                    <Button.Content visible>
+                        <Icon name={creating ? "close" : "add"} />
+                    </Button.Content>
+                    <Button.Content hidden>
+                        {creating ? "Cancel Room Creation" : "Create New Room"}
+                    </Button.Content>
+                </Button>
+                <br />
+                {creating && <h1 style={{ color: "#FDFDFD" }}>Configure Rooms</h1>}
+                {creating ? <RoomCreationForm /> : <RoomConfig />}
+            </Container>
+            <br />
+            <br />
+            <br />
+        </main>
     );
-  }
 }
 
-export default RooomsPage;
+export default RoomsPage;
