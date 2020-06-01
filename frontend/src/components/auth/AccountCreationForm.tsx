@@ -6,12 +6,12 @@ import { CONSOLE_LOGGING } from "../../DevelopmentView";
 import { UNKNOWN_ERROR } from "../../util/Constants";
 import { Context } from "../../contexts/UserProvider";
 
-const USER_EXISTS = "An account with this email already exists.";
-const USER_EMAIL_ERROR =
+const USER_EXISTS: string = "An account with this email already exists.";
+const USER_EMAIL_ERROR: string =
   "Either an account with this email already exists or current email does not match with the email containing this link.";
-const INVALID_FIELDS = "Invalid fields.";
+const INVALID_FIELDS: string = "Invalid fields.";
 
-const AccountCreationForm = props => {
+const AccountCreationForm = (props: any) => {
   const context = useContext(Context);
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -31,12 +31,12 @@ const AccountCreationForm = props => {
     const data = {
       name: name,
       email: email,
-      password: password
+      password: password,
     };
     CONSOLE_LOGGING && console.log("Submission data", data);
     axios
       .post("/auth/newAccountsDirect", data)
-      .then(response => {
+      .then((response) => {
         CONSOLE_LOGGING && console.log("POST create account direct:", response);
         if (response.status === 200) {
           setUserCreated(true);
@@ -65,12 +65,12 @@ const AccountCreationForm = props => {
       name: name,
       email: email,
       password: password,
-      uniqueURIcomponent: props.uniqueId
+      uniqueURIcomponent: props.uniqueId,
     };
     CONSOLE_LOGGING && console.log("Submission data", data);
     axios
       .post("/auth/newAccounts", data)
-      .then(response => {
+      .then((response) => {
         CONSOLE_LOGGING && console.log("POST create account link:", response);
         if (response.status === 200) {
           setUserCreated(true);

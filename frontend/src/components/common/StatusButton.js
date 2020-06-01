@@ -1,26 +1,22 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { Context } from "../../contexts/UserProvider";
 import { Button, Popup } from "semantic-ui-react";
 import { CONSOLE_LOGGING } from "../../DevelopmentView";
 import { CountsContext } from "../../contexts/CountsProvider";
 
-class StatusButton extends React.Component {
-  static contextType = Context;
-
-  constructor(props) {
-    super(props);
-    this.state = { isOpen: false, hasUpdated: false };
-
-    this.togglePopup = this.togglePopup.bind(this);
-  }
+function StatusButton(props) {
+  const context = useContext(Context);
+  const [isOpen, setIsOpen] = useState(false);
+  const [hasUpdated, setHasUpdated] = useState(false);
+  const [status, updateStatus] = useState(null);
 
   // 0 => pending, 1 => approved, 2 => rejected, 3 => cancelled
-  renderStatusButton() {
+  const renderStatusButton = () => {
     let color;
     let statusLabel;
 
-    switch (this.props.status) {
+    switch (props.status) {
       case 0:
         color = "orange";
         statusLabel = "Pending";
@@ -50,144 +46,139 @@ class StatusButton extends React.Component {
         disabled={statusLabel === "Cancelled"}
       />
     );
-  }
+  };
 
-  updateBookingRequest(newStatus) {
+  const updateBookingRequest = (newStatus) => {
     const data = {
-      id: this.props.bookingId,
-      approved: newStatus
+      id: props.bookingId,
+      approved: newStatus,
     };
     axios
       .patch("../api/rooms/bookings/manage", data, {
-        headers: { Authorization: `Bearer ${this.context.token}` }
+        headers: { Authorization: `Bearer ${context.token}` },
       })
-      .then(response => {
+      .then((response) => {
         CONSOLE_LOGGING && console.log("PATCH update status:", response);
         if (response.status === 200) {
-          this.props.updateTable();
-          this.setState({ hasUpdated: true });
+          props.updateTable();
+          setHasUpdated(true);
         }
       })
       .catch(({ response }) => {
         CONSOLE_LOGGING && console.log("PATCH update status error:", response);
         if (response.status === 401) {
           alert("Your current session has expired. Please log in again.");
-          this.context.resetUser();
+          context.resetUser();
         }
       });
-  }
+  };
 
-  cancelBookingRequest() {
+  const cancelBookingRequest = () => {
     const data = {
-      id: this.props.bookingId
+      id: props.bookingId,
     };
     axios
       .patch("api/rooms/bookings", data, {
-        headers: { Authorization: `Bearer ${this.context.token}` }
+        headers: { Authorization: `Bearer ${context.token}` },
       })
-      .then(response => {
+      .then((response) => {
         CONSOLE_LOGGING && console.log("PATCH cancel booking:", response);
         if (response.status === 200) {
-          this.props.updateTable();
-          this.setState({ hasUpdated: true });
+          props.updateTable();
+          setHasUpdated(true);
         }
       })
       .catch(({ response }) => {
         CONSOLE_LOGGING && console.log("PATCH cancel booking error:", response);
         if (response.status === 401) {
           alert("Your current session has expired. Please log in again.");
-          this.context.resetUser();
+          context.resetUser();
         }
       });
-  }
+  };
 
-  renderOptions() {
-    const status = this.props.status;
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
+
+  const updateLabel = (updater, setCounts) => {
+    //TODO: verify if this is correct
+    setCounts(null, !updater, null);
+    setHasUpdated(false);
+  };
+
+  const renderOptions = () => {
     return (
       <div style={{ flexDirection: "column", display: "flex" }}>
-        {!this.props.cancellable && (status === 0 || status === 2) && (
+        {!props.cancellable && (status === 0 || status === 2) && (
           <Button
             color="green"
             content="Approve"
             onClick={() => {
-              this.updateBookingRequest(1);
-              this.togglePopup();
+              updateBookingRequest(1);
+              togglePopup();
             }}
             style={{ margin: "0.25rem 0" }}
           />
         )}
-        {!this.props.cancellable && (status === 1 || status === 2) && (
+        {!props.cancellable && (status === 1 || status === 2) && (
           <Button
             color="orange"
             content="Revoke"
             onClick={() => {
-              this.updateBookingRequest(0);
-              this.togglePopup();
+              updateBookingRequest(0);
+              togglePopup();
             }}
             style={{ margin: "0.25rem 0" }}
           />
         )}
-        {!this.props.cancellable && (status === 0 || status === 1) && (
+        {!props.cancellable && (status === 0 || status === 1) && (
           <Button
             color="red"
             content="Reject"
             onClick={() => {
-              this.updateBookingRequest(2);
-              this.togglePopup();
+              updateBookingRequest(2);
+              togglePopup();
             }}
             style={{ margin: "0.25rem 0" }}
           />
         )}
-        {this.props.cancellable && (
+        {props.cancellable && (
           <Button
             color="red"
             content="Cancel"
             onClick={() => {
-              this.cancelBookingRequest();
-              this.togglePopup();
+              cancelBookingRequest();
+              togglePopup();
             }}
             style={{ margin: "0.25rem 0" }}
           />
         )}
       </div>
     );
-  }
+  };
 
-  togglePopup() {
-    this.setState({ isOpen: !this.state.isOpen });
-  }
-
-  updateLabel(counts, setCounts) {
-    setCounts({
-      updater: !counts.updater
-    });
-
-    this.setState({ hasUpdated: false });
-  }
-
-  render() {
-    return (
-      <div>
-        <Popup
-          trigger={this.renderStatusButton()}
-          on="click"
-          content={this.renderOptions()}
-          position="bottom center"
-          open={this.state.isOpen}
-          onOpen={this.togglePopup}
-          onClose={this.togglePopup}
-          disabled={this.props.status === 3}
-        />
-        {this.state.hasUpdated && (
-          <CountsContext.Consumer>
-            {({ counts, setCounts }) => {
-              this.updateLabel(counts, setCounts);
-            }}
-          </CountsContext.Consumer>
-        )}
-      </div>
-    );
-  }
+  return (
+    <div>
+      <Popup
+        trigger={renderStatusButton()}
+        on="click"
+        content={renderOptions()}
+        position="bottom center"
+        open={isOpen}
+        onOpen={togglePopup}
+        onClose={togglePopup}
+        disabled={props.status === 3}
+      />
+      {hasUpdated && (
+        <CountsContext.Consumer>
+          {({ updater, setCounts }) => {
+            updateLabel(updater, setCounts);
+          }}
+        </CountsContext.Consumer>
+      )}
+    </div>
+  );
 }
 
 export default StatusButton;

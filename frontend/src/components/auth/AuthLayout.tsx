@@ -2,7 +2,11 @@ import React from "react";
 import logo from "../../images/treeckle_startup.png";
 import { Grid, Image, Segment } from "semantic-ui-react";
 
-const AuthLayout = props => {
+type Props = {
+  form: JSX.Element;
+};
+
+const AuthLayout = (props: Props) => {
   return (
     <Grid style={{ height: "100vh" }} textAlign="center" verticalAlign="middle">
       <Grid.Column style={{ maxWidth: "80%" }}>
@@ -19,7 +23,7 @@ const AuthLayout = props => {
                   margin: "2.5em",
                   width: "85%",
                   height: "auto",
-                  display: "block"
+                  display: "block",
                 }}
               />
             </Grid.Column>

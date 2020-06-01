@@ -1,8 +1,8 @@
 import React from "react";
-import AccountCreationForm from "../../components/auth/AccountCreationForm.js";
+import AccountCreationForm from "../../components/auth/AccountCreationForm.tsx";
 import AuthLayoutResetState from "../../components/auth/AuthLayoutResetState";
 
-const DirectAccountCreationPage = props => (
+const DirectAccountCreationPage = (props) => (
   <AuthLayoutResetState form={<AccountCreationForm directCreation={true} />} />
 );
 

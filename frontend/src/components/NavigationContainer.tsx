@@ -5,11 +5,12 @@ import MobileNavigationBar from "./MobileNavigationBar";
 import DesktopNavigationBar from "./DesktopNavigationBar";
 import { CountsContext } from "../contexts/CountsProvider";
 
-function NavigationContainer({ children }) {
+function NavigationContainer({ children }: any) {
   const [activeTab, setActiveTab] = useState("");
   const counts = useContext(CountsContext);
-  useEffect(() => counts.setCounts({ updater: !counts.counts.updater }), []);
+  useEffect(() => counts.setCounts(null, !counts.updater, null), []);
 
+  //TODO: verify return type of this function
   const getWidth = () => {
     const isSSR = typeof window === "undefined";
 
@@ -37,7 +38,7 @@ function NavigationContainer({ children }) {
 }
 
 NavigationContainer.propTypes = {
-  children: PropTypes.node
+  children: PropTypes.node,
 };
 
 export default NavigationContainer;

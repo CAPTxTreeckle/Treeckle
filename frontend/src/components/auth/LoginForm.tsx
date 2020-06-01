@@ -6,10 +6,14 @@ import { Form, Header, Message } from "semantic-ui-react";
 import { CONSOLE_LOGGING } from "../../DevelopmentView";
 import { UNKNOWN_ERROR } from "../../util/Constants";
 
-const MISSING_FIELDS = "Missing email/password.";
-const INCORRECT_CREDENTIALS = "Incorrect email/password.";
+const MISSING_FIELDS: string = "Missing email/password.";
+const INCORRECT_CREDENTIALS: string = "Incorrect email/password.";
 
-const LoginForm = props => {
+type Props = {
+  setForgetPassword: (forgetPassword: boolean) => void;
+};
+
+const LoginForm = (props: Props) => {
   const context = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -20,9 +24,9 @@ const LoginForm = props => {
     axios
       .post("/auth/accounts", {
         email: email,
-        password: password
+        password: password,
       })
-      .then(response => {
+      .then((response) => {
         CONSOLE_LOGGING && console.log("POST sign in:", response);
         if (response.status === 200) {
           const { token, name, profilePic, role } = response.data;
@@ -32,7 +36,7 @@ const LoginForm = props => {
       })
       .catch(({ response }) => {
         CONSOLE_LOGGING && console.log("POST sign in error:", response);
-        let msg;
+        let msg: string;
         switch (response.status) {
           case 400:
             msg = MISSING_FIELDS;

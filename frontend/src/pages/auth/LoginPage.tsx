@@ -12,8 +12,8 @@ const LoginPage = () => {
         forgetPassword ? (
           <ForgetPasswordForm setForgetPassword={setForgetPassword} />
         ) : (
-          <LoginForm setForgetPassword={setForgetPassword} />
-        )
+            <LoginForm setForgetPassword={setForgetPassword} />
+          )
       }
     />
   );

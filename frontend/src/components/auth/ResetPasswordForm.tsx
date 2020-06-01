@@ -6,9 +6,13 @@ import { CONSOLE_LOGGING } from "../../DevelopmentView";
 import { UNKNOWN_ERROR } from "../../util/Constants";
 import { Context } from "../../contexts/UserProvider";
 
-const INVALID_FIELDS = "Invalid fields.";
+const INVALID_FIELDS: string = "Invalid fields.";
 
-const ResetPasswordForm = props => {
+type Props = {
+  uniqueId: any;
+};
+
+const ResetPasswordForm = (props: Props) => {
   const context = useContext(Context);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -25,12 +29,12 @@ const ResetPasswordForm = props => {
     const data = {
       email: email,
       password: password,
-      uniqueURIcomponent: props.uniqueId
+      uniqueURIcomponent: props.uniqueId,
     };
     CONSOLE_LOGGING && console.log("Submission data", data);
     axios
       .post("/auth/resetAttempt", data)
-      .then(response => {
+      .then((response) => {
         CONSOLE_LOGGING && console.log("POST reset account:", response);
         if (response.status === 200) {
           setPasswordChanged(true);
@@ -38,7 +42,7 @@ const ResetPasswordForm = props => {
       })
       .catch(({ response }) => {
         CONSOLE_LOGGING && console.log("POST reset account error:", response);
-        let msg;
+        let msg: string;
         switch (response.status) {
           case 422:
             msg = INVALID_FIELDS;

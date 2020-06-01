@@ -9,11 +9,25 @@ import DesktopAdminTab from "./DesktopAdminTab";
 import UserMenu from "./UserMenu";
 import { DEVELOPMENT_VIEW } from "../DevelopmentView";
 
-function DesktopNavigationBar(props) {
+type Props = {
+  //TODO: Confirm the type of getWidth in NavigationContainer
+  getWidth: () => any;
+  activeTab: string;
+  setActiveTab: (activeTab: string) => void;
+  children: any;
+};
+
+export type TabProps = {
+  activeTab: string;
+  //TODO: verify types
+  onTabClick: (event: any, data: any) => void;
+};
+
+function DesktopNavigationBar(props: Props) {
   const user = useContext(Context);
   const { getWidth, children, activeTab, setActiveTab } = props;
 
-  const onTabClick = (event, data) => {
+  const onTabClick = (event: any, data: any) => {
     setActiveTab(data.name);
   };
 

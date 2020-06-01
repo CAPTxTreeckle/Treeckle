@@ -4,20 +4,29 @@ import { Message, Form, Header } from "semantic-ui-react";
 import { CONSOLE_LOGGING } from "../../DevelopmentView";
 import { UNKNOWN_ERROR } from "../../util/Constants";
 
-const SUCCESS_MESSAGE =
-  "An email to reset your password has been sent to your account.";
-const INVALID_EMAIL = "Incorrect email.";
+type Props = {
+  setForgetPassword: (setForgetPassword: boolean) => void;
+};
 
-const ForgotPasswordForm = props => {
+type Status = {
+  success: boolean;
+  message: string;
+};
+
+const SUCCESS_MESSAGE: string =
+  "An email to reset your password has been sent to your account.";
+const INVALID_EMAIL: string = "Incorrect email.";
+
+const ForgotPasswordForm = (props: Props) => {
   const [email, setEmail] = useState("");
-  const [status, setStatus] = useState(null);
+  const [status, setStatus] = useState<Status | null>(null);
 
   const handleSubmit = () => {
     axios
       .post("/auth/resetAccount", {
-        email: email
+        email: email,
       })
-      .then(response => {
+      .then((response) => {
         CONSOLE_LOGGING && console.log("POST reset password:", response);
         if (response.status === 200) {
           setStatus({ success: true, message: SUCCESS_MESSAGE });
@@ -25,7 +34,7 @@ const ForgotPasswordForm = props => {
       })
       .catch(({ response }) => {
         CONSOLE_LOGGING && console.log("POST reset password:", response);
-        let msg;
+        let msg: string;
         switch (response.status) {
           case 422:
             msg = INVALID_EMAIL;

@@ -2,8 +2,9 @@ import React, { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Menu, Label, Dropdown } from "semantic-ui-react";
 import { CountsContext } from "../contexts/CountsProvider";
+import { TabProps } from "./DesktopNavigationBar";
 
-function MobileAdminTab(props) {
+function DesktopAdminTab(props: TabProps) {
   const counts = useContext(CountsContext);
 
   const adminOptions = [
@@ -33,7 +34,7 @@ function MobileAdminTab(props) {
       active={props.activeTab === "admin/settings"}
       text="Settings"
       onClick={props.onTabClick}
-    />
+    />,
   ];
 
   return (
@@ -42,8 +43,8 @@ function MobileAdminTab(props) {
       text="Admin"
       as={Menu.Item}
       icon={
-        counts.counts.pendingRoomBookings >= 0 && (
-          <Label color="red">{counts.counts.pendingRoomBookings}</Label>
+        counts.pendingRoomBookings >= 0 && (
+          <Label color="red">{counts.pendingRoomBookings}</Label>
         )
       }
       floating
@@ -52,4 +53,4 @@ function MobileAdminTab(props) {
   );
 }
 
-export default MobileAdminTab;
+export default DesktopAdminTab;

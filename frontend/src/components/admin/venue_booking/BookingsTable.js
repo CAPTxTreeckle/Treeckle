@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useContext, useState, useEffect } from "react";
 import axios from "axios";
 import { Context } from "../../../contexts/UserProvider";
 import { Table, Segment } from "semantic-ui-react";
@@ -7,45 +7,37 @@ import { toDateTimeString } from "../../../util/DateUtil";
 import { CONSOLE_LOGGING } from "../../../DevelopmentView";
 import "../../../styles/ScrollableTable.scss";
 
-class BookingsTable extends React.Component {
-  static contextType = Context;
+function BookingsTable(props) {
+  //TODO: rectify type for requests
+  const [allRequests, setAllRequests] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const userContext = useContext(Context);
 
-  constructor(props) {
-    super(props);
-    this.state = {
-      allRequests: [],
-      isLoading: true
-    };
+  useEffect(() => {
+    retrieveAllRequests();
+  }, []);
 
-    this.renderBodyRow = this.renderBodyRow.bind(this);
-    this.retrieveAllRequests = this.retrieveAllRequests.bind(this);
-  }
-
-  componentDidMount() {
-    this.retrieveAllRequests();
-  }
-
-  retrievePendingRequests() {
+  const retrievePendingRequests = () => {
     return axios.get(
       `../api/rooms/bookings/all?Approved=0&Rejected=0&Cancelled=0&limit=1000`,
       {
-        headers: { Authorization: `Bearer ${this.context.token}` }
+        headers: { Authorization: `Bearer ${userContext.token}` },
       }
     );
-  }
+  };
 
-  retrieveRemainingRequests() {
+  const retrieveRemainingRequests = () => {
     return axios.get(
       `../api/rooms/bookings/all?Pending=0&limit=1000&sortOrder=-1`,
       {
-        headers: { Authorization: `Bearer ${this.context.token}` }
+        headers: { Authorization: `Bearer ${userContext.token}` },
       }
     );
-  }
+  };
 
-  retrieveAllRequests() {
+  const retrieveAllRequests = () => {
     axios
-      .all([this.retrievePendingRequests(), this.retrieveRemainingRequests()])
+      .all([retrievePendingRequests(), retrieveRemainingRequests()])
       .then(
         axios.spread((pendingRequestsResponse, remainingRequestsResponse) => {
           CONSOLE_LOGGING &&
@@ -64,12 +56,10 @@ class BookingsTable extends React.Component {
           ) {
             const allRequests = [
               ...pendingRequestsResponse.data.bookings,
-              ...remainingRequestsResponse.data.bookings
+              ...remainingRequestsResponse.data.bookings,
             ];
-            this.setState({
-              allRequests,
-              isLoading: false
-            });
+            setAllRequests(allRequests);
+            setIsLoading(false);
           }
         })
       )
@@ -79,12 +69,12 @@ class BookingsTable extends React.Component {
           console.log("GET all booking requests error:", response);
         if (response.status === 401) {
           alert("Your current session has expired. Please log in again.");
-          this.context.resetUser();
+          userContext.resetUser();
         }
       });
-  }
+  };
 
-  renderBodyRow(data, index) {
+  const renderBodyRow = (data, index) => {
     const {
       createdByName,
       createdByEmail,
@@ -96,7 +86,7 @@ class BookingsTable extends React.Component {
       description,
       createdDate,
       approved,
-      bookingId
+      bookingId,
     } = data;
     const status = approved;
     const row = (
@@ -115,50 +105,43 @@ class BookingsTable extends React.Component {
             status={status}
             cancellable={false}
             bookingId={bookingId}
-            updateTable={this.retrieveAllRequests}
+            updateTable={retrieveAllRequests}
           />
         </Table.Cell>
       </Table.Row>
     );
     return row;
-  }
+  };
 
-  render() {
-    return (
-      <div className="scrollable-table" style={{ maxHeight: "44em" }}>
-        {this.state.allRequests.length > 0 ? (
-          <Table
-            selectable
-            headerRow={
-              <Table.Row>
-                <Table.HeaderCell>Name</Table.HeaderCell>
-                <Table.HeaderCell>Email</Table.HeaderCell>
-                <Table.HeaderCell>Contact number</Table.HeaderCell>
-                <Table.HeaderCell>Venue</Table.HeaderCell>
-                <Table.HeaderCell>Start</Table.HeaderCell>
-                <Table.HeaderCell>End</Table.HeaderCell>
-                <Table.HeaderCell>Number of participants</Table.HeaderCell>
-                <Table.HeaderCell>Purpose</Table.HeaderCell>
-                <Table.HeaderCell>Submitted at</Table.HeaderCell>
-                <Table.HeaderCell>Status</Table.HeaderCell>
-              </Table.Row>
-            }
-            tableData={this.state.allRequests}
-            renderBodyRow={this.renderBodyRow}
-          />
-        ) : (
-          <Segment
-            placeholder
-            textAlign="center"
-            size="huge"
-            loading={this.state.isLoading}
-          >
-            There are currently no booking requests
-          </Segment>
-        )}
-      </div>
-    );
-  }
+  return (
+    <div className="scrollable-table" style={{ maxHeight: "44em" }}>
+      {allRequests.length > 0 ? (
+        <Table
+          selectable
+          headerRow={
+            <Table.Row>
+              <Table.HeaderCell>Name</Table.HeaderCell>
+              <Table.HeaderCell>Email</Table.HeaderCell>
+              <Table.HeaderCell>Contact number</Table.HeaderCell>
+              <Table.HeaderCell>Venue</Table.HeaderCell>
+              <Table.HeaderCell>Start</Table.HeaderCell>
+              <Table.HeaderCell>End</Table.HeaderCell>
+              <Table.HeaderCell>Number of participants</Table.HeaderCell>
+              <Table.HeaderCell>Purpose</Table.HeaderCell>
+              <Table.HeaderCell>Submitted at</Table.HeaderCell>
+              <Table.HeaderCell>Status</Table.HeaderCell>
+            </Table.Row>
+          }
+          tableData={allRequests}
+          renderBodyRow={renderBodyRow}
+        />
+      ) : (
+        <Segment placeholder textAlign="center" size="huge" loading={isLoading}>
+          There are currently no booking requests
+        </Segment>
+      )}
+    </div>
+  );
 }
 
 export default BookingsTable;
