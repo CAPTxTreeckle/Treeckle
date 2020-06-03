@@ -1,33 +1,35 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import axios from "axios";
 import { Context } from "../../../contexts/UserProvider";
 import { Button, Popup } from "semantic-ui-react";
 import { CONSOLE_LOGGING } from "../../../DevelopmentView";
+import { Role } from "./RoleTypes";
 
-class ChangeRoleButton extends React.Component {
-  static contextType = Context;
+type Props = {
+  name: string;
+  email: string;
+  role: Role;
+  updateTable: () => void;
+};
 
-  constructor(props) {
-    super(props);
-    this.state = { isOpen: false };
+function ChangeRoleButton(props: Props) {
+  const userContext = useContext(Context);
+  const [isOpen, setIsOpen] = useState(false);
 
-    this.togglePopup = this.togglePopup.bind(this);
-  }
-
-  updateRole(newRole) {
+  const updateRole = (newRole: string) => {
     const data = {
-      name: this.props.name,
-      email: this.props.email,
-      role: newRole
+      name: props.name,
+      email: props.email,
+      role: newRole,
     };
     axios
       .patch("../api/accounts", data, {
-        headers: { Authorization: `Bearer ${this.context.token}` }
+        headers: { Authorization: `Bearer ${userContext.token}` },
       })
-      .then(response => {
+      .then((response) => {
         CONSOLE_LOGGING && console.log("PATCH update user role", response);
         if (response.status === 200) {
-          this.props.updateTable();
+          props.updateTable();
         }
       })
       .catch(({ response }) => {
@@ -35,13 +37,13 @@ class ChangeRoleButton extends React.Component {
           console.log("PATCH update user role error", response);
         if (response.status === 401) {
           alert("Your current session has expired. Please log in again.");
-          this.context.resetUser();
+          userContext.resetUser();
         }
       });
-  }
+  };
 
-  renderOptions() {
-    const role = this.props.role;
+  const renderOptions = () => {
+    const role = props.role;
     return (
       <div style={{ flexDirection: "column", display: "flex" }}>
         {role !== "Admin" && (
@@ -49,8 +51,8 @@ class ChangeRoleButton extends React.Component {
             secondary
             content="Make Admin"
             onClick={() => {
-              this.updateRole("Admin");
-              this.togglePopup();
+              updateRole("Admin");
+              togglePopup();
             }}
             style={{ margin: "0.25rem 0" }}
           />
@@ -60,8 +62,8 @@ class ChangeRoleButton extends React.Component {
             secondary
             content="Make Organiser"
             onClick={() => {
-              this.updateRole("Organiser");
-              this.togglePopup();
+              updateRole("Organiser");
+              togglePopup();
             }}
             style={{ margin: "0.25rem 0" }}
           />
@@ -71,37 +73,35 @@ class ChangeRoleButton extends React.Component {
             secondary
             content="Make Resident"
             onClick={() => {
-              this.updateRole("Resident");
-              this.togglePopup();
+              updateRole("Resident");
+              togglePopup();
             }}
             style={{ margin: "0.25rem 0" }}
           />
         )}
       </div>
     );
-  }
+  };
 
-  togglePopup() {
-    this.setState({ isOpen: !this.state.isOpen });
-  }
+  const togglePopup = () => {
+    setIsOpen(!isOpen);
+  };
 
-  render() {
-    return (
-      <Popup
-        trigger={
-          <Button basic color="green">
-            Change role
-          </Button>
-        }
-        on="click"
-        content={this.renderOptions()}
-        position="bottom center"
-        open={this.state.isOpen}
-        onOpen={this.togglePopup}
-        onClose={this.togglePopup}
-      />
-    );
-  }
+  return (
+    <Popup
+      trigger={
+        <Button basic color="green">
+          Change role
+        </Button>
+      }
+      on="click"
+      content={renderOptions()}
+      position="bottom center"
+      open={isOpen}
+      onOpen={togglePopup}
+      onClose={togglePopup}
+    />
+  );
 }
 
 export default ChangeRoleButton;
