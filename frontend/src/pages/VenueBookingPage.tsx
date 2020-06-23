@@ -4,7 +4,7 @@ import CreateBookingRequest from "../components/user/venue_booking/make_booking/
 import { Container, Button, Icon, Menu } from "semantic-ui-react";
 import UserBookingsTable from "../components/user/venue_booking/view_bookings/UserBookingsTable";
 
-const VenueBookingPage = props => {
+const VenueBookingPage = () => {
   ReactGA.pageview("/bookings");
   const [creating, setCreating] = useState(false);
 

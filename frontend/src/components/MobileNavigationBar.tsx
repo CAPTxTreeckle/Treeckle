@@ -11,12 +11,25 @@ import UserMenu from "./UserMenu";
 import { DEVELOPMENT_VIEW } from "../DevelopmentView";
 import "../styles/ContainerScrollBar.scss";
 
-function MobileNavigationBar(props) {
+//TODO: Same props as DesktopNavigationBar, can export and replace after
+//identifying return type of getWidth
+type Props = {
+  getWidth: () => any;
+  children: any;
+  activeTab: string;
+  setActiveTab: (activeTab: string) => void;
+};
+
+type Data = {
+  name: string;
+};
+
+function MobileNavigationBar(props: Props) {
   const user = useContext(Context);
   const { getWidth, children, activeTab, setActiveTab } = props;
   const [sidebarOpened, setSidebarOpened] = useState(false);
 
-  const onTabClick = (event, data) => {
+  const onTabClick = (event: any, data: Data) => {
     setActiveTab(data.name);
     setSidebarOpened(false);
   };
@@ -27,7 +40,8 @@ function MobileNavigationBar(props) {
       getWidth={getWidth}
       maxWidth={Responsive.onlyTablet.maxWidth}
       onUpdate={() => {
-        getWidth() > Responsive.onlyTablet.maxWidth && setSidebarOpened(false);
+        getWidth() > (Responsive.onlyTablet.maxWidth as number) &&
+          setSidebarOpened(false);
       }}
     >
       <Sidebar

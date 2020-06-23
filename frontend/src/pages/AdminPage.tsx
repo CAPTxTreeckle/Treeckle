@@ -1,6 +1,5 @@
-import React, { useContext } from "react";
+import React from "react";
 import ReactGA from "react-ga";
-import { Context } from "../contexts/UserProvider";
 import { Container, Menu, Grid } from "semantic-ui-react";
 import AccountCreation from "../components/admin/account_creation/AccountCreation";
 import UserAccountsTable from "../components/admin/user_accounts/UserAccountsTable";

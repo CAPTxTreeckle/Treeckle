@@ -14,7 +14,9 @@ function NavigationContainer({ children }: any) {
   const getWidth = () => {
     const isSSR = typeof window === "undefined";
 
-    return isSSR ? Responsive.onlyTablet.minWidth : window.innerWidth;
+    return (isSSR
+      ? Responsive.onlyTablet.minWidth
+      : window.innerWidth) as number;
   };
 
   return (

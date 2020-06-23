@@ -3,7 +3,15 @@ import { Link } from "react-router-dom";
 import { Menu, Accordion, Label } from "semantic-ui-react";
 import { CountsContext } from "../contexts/CountsProvider";
 
-function MobileAdminTab(props) {
+type Props = {
+  activeTab: string;
+  onTabClick: (
+    event: React.MouseEvent<HTMLAnchorElement, MouseEvent>,
+    data: any
+  ) => void;
+};
+
+function MobileAdminTab(props: Props) {
   const counts = useContext(CountsContext);
   const [isExpanded, setExpanded] = useState(false);
 
@@ -14,10 +22,10 @@ function MobileAdminTab(props) {
         active={isExpanded}
       >
         Admin
-        {counts.counts.pendingRoomBookings >= 0 && (
+        {counts.pendingRoomBookings >= 0 && (
           <Label
             color="red"
-            content={counts.counts.pendingRoomBookings}
+            content={counts.pendingRoomBookings}
             style={{ marginLeft: "1em" }}
             size="small"
           />

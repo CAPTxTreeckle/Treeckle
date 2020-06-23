@@ -6,24 +6,24 @@ import { Input, Header, Grid, Icon } from "semantic-ui-react";
 import { CONSOLE_LOGGING } from "../../../DevelopmentView";
 
 export default function UserSelfNameChanger() {
-  const context = useContext(Context);
+  const userContext = useContext(Context);
 
   const [state, setstate] = useState({
     editMode: false,
-    editValue: context.name
+    editValue: userContext.name,
   });
 
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setstate({
       editMode: state.editMode,
-      editValue: e.target.value
+      editValue: e.target.value,
     });
   };
 
   const handleEditActivate = () => {
     setstate({
       editMode: !state.editMode,
-      editValue: state.editValue
+      editValue: state.editValue,
     });
   };
 
@@ -33,30 +33,30 @@ export default function UserSelfNameChanger() {
         "api/accounts/profileName",
         { newName: state.editValue },
         {
-          headers: { Authorization: `Bearer ${context.token}` }
+          headers: { Authorization: `Bearer ${userContext.token}` },
         }
       )
-      .then(response => {
+      .then((response) => {
         CONSOLE_LOGGING && console.log("PATCH Name:", response);
         if (response.status === 200) {
-          context.setUser(
-            context.token,
+          userContext.setUser(
+            userContext.token,
             response.data,
-            context.profilePic,
-            context.role
+            userContext.profilePic,
+            userContext.role
           );
           setstate({
             editMode: false,
-            editValue: response.data
+            editValue: response.data,
           });
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log(error);
         if (error.response) {
           if (error.response.status === 401) {
             alert("Your current session has expired. Please log in again.");
-            context.resetUser();
+            userContext.resetUser();
           }
         }
       });
@@ -71,22 +71,22 @@ export default function UserSelfNameChanger() {
             action={{
               color: "green",
               icon: "check",
-              onClick: () => handleNameEdit()
+              onClick: () => handleNameEdit(),
             }}
             placeholder="Name cannot be empty"
             onChange={handleChange}
             value={state.editValue}
-            defaultValue={context.name}
+            defaultValue={userContext.name}
           />
         ) : (
           <p
             style={{
               fontSize: "1.75em",
               fontWeight: "bold",
-              wordWrap: "break-word"
+              wordWrap: "break-word",
             }}
           >
-            {context.name}
+            {userContext.name}
           </p>
         )}
       </Grid.Column>
@@ -97,7 +97,7 @@ export default function UserSelfNameChanger() {
           style={{
             marginTop: "0.5rem",
             top: "50%",
-            cursor: "pointer"
+            cursor: "pointer",
           }}
         />
       </Grid.Column>

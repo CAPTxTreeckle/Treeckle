@@ -3,15 +3,17 @@ import { Context } from "./UserProvider";
 import axios from "axios";
 import { CONSOLE_LOGGING } from "../DevelopmentView";
 
+export type setCountsType = (
+  pendingRoomBookingsParam: number | null,
+  updaterParam: boolean | null,
+  runOnceParam: boolean | null
+) => void;
+
 type CountsContextType = {
   pendingRoomBookings: number;
   updater: boolean;
   runOnce: boolean;
-  setCounts: (
-    pendingRoomBookingsParam: number | null,
-    updaterParam: boolean | null,
-    runOnceParam: boolean | null
-  ) => void;
+  setCounts: setCountsType;
 };
 
 export const CountsContext = createContext<CountsContextType>({

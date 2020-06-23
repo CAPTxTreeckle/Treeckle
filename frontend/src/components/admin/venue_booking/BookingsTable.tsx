@@ -7,9 +7,9 @@ import { toDateTimeString } from "../../../util/DateUtil";
 import { CONSOLE_LOGGING } from "../../../DevelopmentView";
 import "../../../styles/ScrollableTable.scss";
 
-function BookingsTable(props) {
+function BookingsTable() {
   //TODO: rectify type for requests
-  const [allRequests, setAllRequests] = useState([]);
+  const [allRequests, setAllRequests] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const userContext = useContext(Context);
 
@@ -74,7 +74,7 @@ function BookingsTable(props) {
       });
   };
 
-  const renderBodyRow = (data, index) => {
+  const renderBodyRow = (data: any, index: number) => {
     const {
       createdByName,
       createdByEmail,
