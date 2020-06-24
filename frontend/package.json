@@ -3,10 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+<<<<<<< HEAD
     "@types/node": "^14.0.1",
     "@types/react": "^16.9.35",
     "@types/react-dom": "^16.9.8",
     "@types/react-router-dom": "^5.1.5",
+=======
+>>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
     "axios": "^0.19.0",
     "date-fns": "^2.5.0",
     "node-sass": "^4.12.0",
@@ -21,14 +24,23 @@
     "react-semantic-ui-datepickers": "^1.12.0",
     "semantic-ui-react": "^0.88.1",
     "slick-carousel": "^1.8.1",
+<<<<<<< HEAD
     "typescript": "^3.9.2",
+=======
+>>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
     "yup": "^0.27.0"
   },
   "scripts": {
     "start": "craco start",
+<<<<<<< HEAD
     "test": "craco test",
     "eject": "craco eject",
     "build": "tsc"
+=======
+    "build": "craco build",
+    "test": "craco test",
+    "eject": "craco eject"
+>>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
   },
   "eslintConfig": {
     "extends": "react-app"
