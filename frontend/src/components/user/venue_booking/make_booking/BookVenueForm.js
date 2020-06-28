@@ -11,6 +11,7 @@ const OVERLAP_CONFLICT_MSG =
 const UNKNOWN_ERROR_MSG = "An unknown error has occurred. Please try again.";
 const TR2_LABEL = "Name and house of TR2-trained personnel";
 
+//TODO: convert to functional component and typescript
 class BookVenueForm extends React.Component {
   static contextType = Context;
   constructor(props) {
@@ -31,7 +32,7 @@ class BookVenueForm extends React.Component {
       numParticipants: 0,
       purpose: "",
       tr2Trained: "",
-      success: false
+      success: false,
     };
     return initialState;
   }
@@ -73,13 +74,13 @@ class BookVenueForm extends React.Component {
           contactNumber: this.state.contactNumber,
           expectedAttendees: this.state.numParticipants,
           start: this.props.bookingPeriod.start,
-          end: this.props.bookingPeriod.end
+          end: this.props.bookingPeriod.end,
         };
         axios
           .post("api/rooms/bookings", data, {
-            headers: { Authorization: `Bearer ${this.context.token}` }
+            headers: { Authorization: `Bearer ${this.context.token}` },
           })
-          .then(response => {
+          .then((response) => {
             CONSOLE_LOGGING && console.log("POST form submission:", response);
             if (response.status === 200) {
               this.setState({ success: true });

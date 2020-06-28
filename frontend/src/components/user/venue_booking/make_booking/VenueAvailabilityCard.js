@@ -11,6 +11,7 @@ import { toTimeString, toDateString } from "../../../../util/DateUtil";
 import { isAfter, subDays, addDays } from "date-fns";
 import { CONSOLE_LOGGING } from "../../../../DevelopmentView";
 
+//TODO: Convert to functional component and typescript
 class VenueAvailabilityCard extends React.Component {
   static contextType = Context;
 
@@ -22,7 +23,7 @@ class VenueAvailabilityCard extends React.Component {
       endDate: null,
       availabilityOptions: [],
       startDateTime: null,
-      endDateTime: null
+      endDateTime: null,
     };
 
     this.renderBodyRow = this.renderBodyRow.bind(this);
@@ -74,7 +75,7 @@ class VenueAvailabilityCard extends React.Component {
       startDate,
       endDate: startDate,
       startDateTime: null,
-      endDateTime: null
+      endDateTime: null,
     });
   }
 
@@ -109,16 +110,18 @@ class VenueAvailabilityCard extends React.Component {
         .get(
           `api/rooms/bookings/${
             this.props.venue.roomId
-          }/${this.state.endDate.getTime()}-${this.state.endDate.getTime() +
-            DAY_MILLISECONDS}`,
+          }/${this.state.endDate.getTime()}-${
+            this.state.endDate.getTime() + DAY_MILLISECONDS
+          }`,
           {
-            headers: { Authorization: `Bearer ${this.context.token}` }
+            headers: { Authorization: `Bearer ${this.context.token}` },
           }
         )
-        .then(response => {
+        .then((response) => {
           CONSOLE_LOGGING && console.log("GET room bookings:", response);
           if (response.status === 200) {
             const bookedSlots = response.data;
+            console.log("booked slots", bookedSlots);
             const availabilityOptions = getUpdatedAvailabilityOptions(
               this.state.endDate,
               this.state.startDateTime,
@@ -145,7 +148,7 @@ class VenueAvailabilityCard extends React.Component {
     const bookingPeriod = {
       venue: this.props.venue,
       start: this.state.startDateTime.getTime(),
-      end: this.state.endDateTime.getTime()
+      end: this.state.endDateTime.getTime(),
     };
     this.props.renderBookingForm(bookingPeriod);
   }
@@ -153,7 +156,7 @@ class VenueAvailabilityCard extends React.Component {
   async onEdit() {
     this.setState({
       endDate: this.state.startDate,
-      endDateTime: null
+      endDateTime: null,
     });
   }
 
@@ -244,7 +247,7 @@ class VenueAvailabilityCard extends React.Component {
                   className="scrollable-table"
                   style={{
                     maxHeight: "21em",
-                    boxShadow: "none"
+                    boxShadow: "none",
                   }}
                 >
                   <Table
@@ -266,7 +269,7 @@ class VenueAvailabilityCard extends React.Component {
               <div
                 style={{
                   display: "flex",
-                  justifyContent: "space-between"
+                  justifyContent: "space-between",
                 }}
               >
                 <Button

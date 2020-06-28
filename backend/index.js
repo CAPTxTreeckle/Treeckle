@@ -1,7 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const {
-  configurePermissions
+  configurePermissions,
 } = require("./models/authentication/permissions-model");
 const keys = require("./config/keys");
 
@@ -15,7 +15,7 @@ const app = express();
 const path = require("path");
 const port = 3000;
 
-const serveIndex = require('serve-index');
+const serveIndex = require("serve-index");
 
 //Initialize
 app.use(passport.initialize());
@@ -28,7 +28,7 @@ mongoose.connect(
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
-    useFindAndModify: false
+    useFindAndModify: false,
   },
   () => {
     console.log("Connected to mongoDB");
@@ -45,13 +45,17 @@ app.get("/", (req, res) =>
 
 app.use(express.static(path.join(__dirname, "../frontend/build")));
 
-app.use('/ftp', express.static('public'), serveIndex('public', {'icons': true}));
+app.use(
+  "/ftp",
+  express.static("public"),
+  serveIndex("public", { icons: true })
+);
 
-app.use('/about', express.static("../frontend/landing"));
+app.use("/about", express.static("../frontend/landing"));
 
 //Catch GET requests to invalid URIs and redirect to home page
 app.get("/*", (req, res) => {
- res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
+  res.sendFile(path.join(__dirname, "../frontend/build/index.html"));
 });
 
 app.listen(port, () => console.log(`Application running on port ${port}!`));

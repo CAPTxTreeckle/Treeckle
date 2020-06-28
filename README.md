@@ -1,3 +1,6 @@
+<<<<<<< HEAD
+# Treeckle-2.0
+=======
 <img src="./Treeckle_poster.png" />
 
 <img src="./Treeckle.png" width="300"  />
@@ -19,3 +22,4 @@ Project video: [Video link](https://www.youtube.com/watch?v=TeCNkYFiCh4&t=1s)
 | Sree Subbash        	 	| [@sreesubbash](https://github.com/sreesubbash)|Full Stack                           |
 | Jeremy Tan           	 	| [@JermyTan](https://github.com/JermyTan)      |Frontend                            	|
 | Rohan Arya Varma     	 	| [@rohan-av](https://github.com/rohan-av)      |Frontend & UI/UX Design             	|
+>>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b

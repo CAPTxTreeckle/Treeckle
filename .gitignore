@@ -1,3 +1,9 @@
+<<<<<<< HEAD
+.DS_Store
+
+#temp ignore
+backend/
+=======
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies
@@ -21,3 +27,4 @@
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+>>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
