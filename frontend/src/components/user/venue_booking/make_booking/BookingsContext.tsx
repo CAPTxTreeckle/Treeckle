@@ -1,7 +1,7 @@
 import React, { createContext, useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { CONSOLE_LOGGING } from "../../../../DevelopmentView";
-import { Venue } from "../booking-types";
+import { Venue } from "../../../custom-typings/booking-types";
 
 type BookingsContextType = {
   selectedCategory: string;

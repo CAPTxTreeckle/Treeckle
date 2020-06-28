@@ -7,7 +7,7 @@ import EventsTab from "./EventsTab";
 import BookingsTab from "./BookingsTab";
 import DesktopAdminTab from "./DesktopAdminTab";
 import UserMenu from "./UserMenu";
-import { DEVELOPMENT_VIEW } from "../DevelopmentView";
+import { DEVELOPMENT_VIEW, CONSOLE_LOGGING } from "../DevelopmentView";
 
 type Props = {
   //TODO: Confirm the type of getWidth in NavigationContainer
@@ -19,7 +19,7 @@ type Props = {
 
 export type TabProps = {
   activeTab: string;
-  //TODO: verify types
+  //TODO: verify type for onTabClick
   onTabClick: (event: any, data: any) => void;
 };
 
@@ -28,6 +28,7 @@ function DesktopNavigationBar(props: Props) {
   const { getWidth, children, activeTab, setActiveTab } = props;
 
   const onTabClick = (event: any, data: any) => {
+    CONSOLE_LOGGING && console.log("Set new tab to:", data.name);
     setActiveTab(data.name);
   };
 

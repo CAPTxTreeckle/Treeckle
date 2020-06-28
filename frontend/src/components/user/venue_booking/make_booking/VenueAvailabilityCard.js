@@ -22,11 +22,7 @@ class VenueAvailabilityCard extends React.Component {
       endDate: null,
       availabilityOptions: [],
       startDateTime: null,
-<<<<<<< HEAD
       endDateTime: null,
-=======
-      endDateTime: null
->>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
     };
 
     this.renderBodyRow = this.renderBodyRow.bind(this);
@@ -78,11 +74,7 @@ class VenueAvailabilityCard extends React.Component {
       startDate,
       endDate: startDate,
       startDateTime: null,
-<<<<<<< HEAD
       endDateTime: null,
-=======
-      endDateTime: null
->>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
     });
   }
 
@@ -117,7 +109,6 @@ class VenueAvailabilityCard extends React.Component {
         .get(
           `api/rooms/bookings/${
             this.props.venue.roomId
-<<<<<<< HEAD
           }/${this.state.endDate.getTime()}-${
             this.state.endDate.getTime() + DAY_MILLISECONDS
           }`,
@@ -126,18 +117,10 @@ class VenueAvailabilityCard extends React.Component {
           }
         )
         .then((response) => {
-=======
-          }/${this.state.endDate.getTime()}-${this.state.endDate.getTime() +
-            DAY_MILLISECONDS}`,
-          {
-            headers: { Authorization: `Bearer ${this.context.token}` }
-          }
-        )
-        .then(response => {
->>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
           CONSOLE_LOGGING && console.log("GET room bookings:", response);
           if (response.status === 200) {
             const bookedSlots = response.data;
+            console.log("booked slots", bookedSlots);
             const availabilityOptions = getUpdatedAvailabilityOptions(
               this.state.endDate,
               this.state.startDateTime,
@@ -164,11 +147,7 @@ class VenueAvailabilityCard extends React.Component {
     const bookingPeriod = {
       venue: this.props.venue,
       start: this.state.startDateTime.getTime(),
-<<<<<<< HEAD
       end: this.state.endDateTime.getTime(),
-=======
-      end: this.state.endDateTime.getTime()
->>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
     };
     this.props.renderBookingForm(bookingPeriod);
   }
@@ -176,11 +155,7 @@ class VenueAvailabilityCard extends React.Component {
   async onEdit() {
     this.setState({
       endDate: this.state.startDate,
-<<<<<<< HEAD
       endDateTime: null,
-=======
-      endDateTime: null
->>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
     });
   }
 
@@ -271,11 +246,7 @@ class VenueAvailabilityCard extends React.Component {
                   className="scrollable-table"
                   style={{
                     maxHeight: "21em",
-<<<<<<< HEAD
                     boxShadow: "none",
-=======
-                    boxShadow: "none"
->>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
                   }}
                 >
                   <Table
@@ -297,11 +268,7 @@ class VenueAvailabilityCard extends React.Component {
               <div
                 style={{
                   display: "flex",
-<<<<<<< HEAD
                   justifyContent: "space-between",
-=======
-                  justifyContent: "space-between"
->>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
                 }}
               >
                 <Button

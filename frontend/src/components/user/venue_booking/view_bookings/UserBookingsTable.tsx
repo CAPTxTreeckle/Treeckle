@@ -6,16 +6,13 @@ import StatusButton from "../../../common/StatusButton";
 import { toDateTimeString } from "../../../../util/DateUtil";
 import { CONSOLE_LOGGING } from "../../../../DevelopmentView";
 import "../../../../styles/ScrollableTable.scss";
-import { Booking } from "../../../custom-typings/booking";
+import { Booking } from "../../../custom-typings/booking-types";
 
 function UserBookingsTable() {
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const userContext = useContext(Context);
 
-  // componentDidMount() {
-  //   this.retrieveBookings();
-  // }
   useEffect(() => {
     retrieveBookings();
   }, []);

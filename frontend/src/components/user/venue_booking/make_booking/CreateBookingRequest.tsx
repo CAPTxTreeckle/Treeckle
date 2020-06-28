@@ -5,7 +5,8 @@ import BookVenueForm from "./BookVenueForm";
 import StatusBar from "../../../common/StatusBar";
 import { Card } from "semantic-ui-react";
 import { CONSOLE_LOGGING } from "../../../../DevelopmentView";
-import { Venue, BookingPeriod, Status } from "../booking-types";
+import { Venue, BookingPeriod } from "../../../custom-typings/booking-types";
+import { Status } from "../../../custom-typings/status-type";
 
 function CreateBookingRequest() {
   const [venue, setVenue] = useState<Venue>(); //{roomId: string, name: string}
@@ -32,10 +33,7 @@ function CreateBookingRequest() {
   };
 
   const renderStatusBar = (success: boolean, message: string) => {
-    const status: Status = {
-      success: success,
-      message: message,
-    };
+    const status: Status = { success, message };
     setStatus(status);
     CONSOLE_LOGGING && console.log("Status:", status);
   };

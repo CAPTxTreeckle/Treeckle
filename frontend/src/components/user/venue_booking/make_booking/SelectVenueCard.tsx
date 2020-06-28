@@ -11,7 +11,7 @@ import {
 import axios from "axios";
 import { Context } from "../../../../contexts/UserProvider";
 import { CONSOLE_LOGGING } from "../../../../DevelopmentView";
-import { Venue } from "../booking-types";
+import { Venue } from "../../../custom-typings/booking-types";
 import { BookingsContext } from "./BookingsContext";
 
 type Props = {

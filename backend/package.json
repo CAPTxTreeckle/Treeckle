@@ -1,19 +1,6 @@
 {
   "name": "backend",
   "version": "1.0.0",
-<<<<<<< HEAD
-  "main": "index.js",
-  "license": "MIT",
-  "dependencies": {
-    "bcrypt": "^4.0.1",
-    "graphql-yoga": "^1.18.3",
-    "jsonwebtoken": "^8.5.1",
-    "mongoose": "^5.9.13",
-    "nodemon": "^2.0.3"
-  },
-  "scripts": {
-    "start": "nodemon -e js,graphql index.js"
-=======
   "description": "",
   "main": "index.js",
   "scripts": {
@@ -46,6 +33,5 @@
   },
   "devDependencies": {
     "nodemon": "^1.19.3"
->>>>>>> de123a4fe033ab9e4608bbf4ce000a83f210f05b
   }
 }

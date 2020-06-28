@@ -5,7 +5,7 @@ import { Button, Popup } from "semantic-ui-react";
 import { CONSOLE_LOGGING } from "../../DevelopmentView";
 import { CountsContext } from "../../contexts/CountsProvider";
 import { buttonColour } from "../custom-typings/react-button-colour";
-import { BookingStatus } from "../custom-typings/booking";
+import { BookingStatus } from "../custom-typings/booking-types";
 
 type Props = {
   status: BookingStatus;

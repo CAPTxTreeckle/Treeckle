@@ -3,14 +3,10 @@ import axios from "axios";
 import { Message, Form, Header } from "semantic-ui-react";
 import { CONSOLE_LOGGING } from "../../DevelopmentView";
 import { UNKNOWN_ERROR } from "../../util/Constants";
+import { Status } from "../custom-typings/status-type";
 
 type Props = {
   setForgetPassword: (setForgetPassword: boolean) => void;
-};
-
-type Status = {
-  success: boolean;
-  message: string;
 };
 
 const SUCCESS_MESSAGE: string =
