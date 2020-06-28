@@ -10,7 +10,6 @@ function NavigationContainer({ children }: any) {
   const counts = useContext(CountsContext);
   useEffect(() => counts.setCounts(null, !counts.updater, null), []);
 
-  //TODO: verify return type of this function
   const getWidth = () => {
     const isSSR = typeof window === "undefined";
 

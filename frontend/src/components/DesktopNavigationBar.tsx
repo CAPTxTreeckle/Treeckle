@@ -10,8 +10,7 @@ import UserMenu from "./UserMenu";
 import { DEVELOPMENT_VIEW, CONSOLE_LOGGING } from "../DevelopmentView";
 
 type Props = {
-  //TODO: Confirm the type of getWidth in NavigationContainer
-  getWidth: () => any;
+  getWidth: () => number;
   activeTab: string;
   setActiveTab: (activeTab: string) => void;
   children: any;

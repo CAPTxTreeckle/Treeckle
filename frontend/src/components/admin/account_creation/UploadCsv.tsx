@@ -17,7 +17,6 @@ function UploadCsv() {
 
   const onChange = (e: any) => {
     setFile(e.target.files[0]);
-    //this.setState({ file: e.target.files[0] });
   };
 
   const fileUpload = (file: any) => {

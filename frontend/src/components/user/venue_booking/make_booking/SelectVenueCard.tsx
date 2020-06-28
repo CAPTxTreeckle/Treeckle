@@ -27,7 +27,6 @@ type Category = {
   };
 };
 
-//TODO: settle the venue rendering on button click (DOM issue)
 function SelectVenueCard(props: Props) {
   const userContext = useContext(Context);
   const [categories, setCategories] = useState<Category[]>([]);
@@ -92,7 +91,6 @@ function SelectVenueCard(props: Props) {
     }
   };
 
-  //TODO: fix improper updating of venues
   const updateCategory = (
     selectedCategory: Category["key"],
     venuesParam: Venue[]

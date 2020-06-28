@@ -111,7 +111,6 @@ function StatusButton(props: Props) {
   };
 
   const updateLabel = (updater: boolean) => {
-    //TODO: verify if this is correct
     countsContext.setCounts(null, !updater, null);
     setHasUpdated(false);
   };

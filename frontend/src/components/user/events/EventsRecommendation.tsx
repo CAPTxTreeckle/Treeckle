@@ -38,7 +38,7 @@ const EventsRecommendation = () => {
       });
   };
 
-  //TODO: verify if type needed for loading card
+  //TODO: verify if loading card needs type
   if (isLoading) {
     return (
       <div>

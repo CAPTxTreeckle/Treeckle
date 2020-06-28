@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Menu, Image } from "semantic-ui-react";
 import logo from "../images/Treeckle_side.png";
 
-//TODO: verify
+//TODO: verify type of onTabClick
 type Props = {
   onTabClick: (event: any, data: any) => void;
 };

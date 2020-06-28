@@ -5,7 +5,6 @@ type Props = {
   event: any;
 };
 
-//TODO: Component does not appear to be used
 const CollapsedEventView = (props: Props) => {
   const curr = props.event;
 

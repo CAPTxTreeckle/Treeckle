@@ -33,7 +33,7 @@ function EventCreation() {
   const [title, setTitle] = useState("");
   const [capacity, setCapacity] = useState("");
   const [startDate, setStartDate] = useState<Date>();
-  //TODO: figure out better type for moment
+  //TODO: figure out type for moment
   const [startTime, setStartTime] = useState<any>();
   const [endDate, setEndDate] = useState<Date>();
   const [endTime, setEndTime] = useState<any>();

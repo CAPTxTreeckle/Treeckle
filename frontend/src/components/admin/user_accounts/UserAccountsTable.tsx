@@ -12,7 +12,7 @@ import { Role } from "./RoleTypes";
 export type UserData = {
   name: string;
   email: string;
-  role: Role; //TODO: Confirm role types
+  role: Role;
 };
 
 function UserAccountsTable() {

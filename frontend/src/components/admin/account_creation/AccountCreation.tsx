@@ -11,16 +11,10 @@ function AccountCreation() {
   const [userCreated, setUserCreated] = useState(false);
   const userContext = useContext(Context);
 
-  //TODO: Verify that this logic is correct
-  // const handleChange = (
-  //   event: any,
-  //   { name, value }: { name: any; value: any }
-  // ) => {
   const handleChange = (event: any, data: any) => {
     setEmail(data.value);
     setUserCreated(false);
     setEmailError(null);
-    //this.setState({ [name]: value, userCreated: false, emailError: null });
   };
 
   const handleSubmit = () => {
@@ -60,7 +54,6 @@ function AccountCreation() {
             msg = "An unknown error has occurred. Please try again.";
         }
         setEmailError(msg);
-        //this.setState({ emailError: { content: msg } });
       });
   };
 

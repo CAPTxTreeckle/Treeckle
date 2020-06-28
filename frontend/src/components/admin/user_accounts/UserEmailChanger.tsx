@@ -22,7 +22,6 @@ function UserEmailChanger(props: Props) {
     return EMAIL_REGEX.test(email);
   };
 
-  //TODO: Verify keyboard event and data type
   const handleChange = (
     event: React.ChangeEvent<HTMLInputElement>,
     data: any

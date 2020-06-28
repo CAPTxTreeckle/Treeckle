@@ -6,10 +6,8 @@ import UserAccountsTable from "../components/admin/user_accounts/UserAccountsTab
 import BookingsTable from "../components/admin/venue_booking/BookingsTable";
 import AdminConfig from "../components/admin/config/AdminConfig";
 
-//TODO: Figure out how the React Syntax works here (toggling the menu)!
 function AdminPage() {
   ReactGA.pageview("/admin");
-  //const userContext = useContext(Context);
 
   return (
     <main className="admin-page">

@@ -5,7 +5,7 @@ import { BookedSlot } from "../components/custom-typings/booking-types";
 
 const createAvailabilityOptions = (
   time = new Date(0, 0),
-  initial?: boolean //TODO: Replaced initial = null with undedfined
+  initial?: boolean //TODO: Replaced initial = null with undefined, please verify
 ) => {
   const defaultAvailabilityOptions = [];
   for (let i = 0; i < DAY_MINUTES / TIME_INTERVAL; i++) {

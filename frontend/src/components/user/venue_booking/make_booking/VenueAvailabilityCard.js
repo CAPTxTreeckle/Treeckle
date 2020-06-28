@@ -11,6 +11,7 @@ import { toTimeString, toDateString } from "../../../../util/DateUtil";
 import { isAfter, subDays, addDays } from "date-fns";
 import { CONSOLE_LOGGING } from "../../../../DevelopmentView";
 
+//TODO: Convert to functional component and typescript
 class VenueAvailabilityCard extends React.Component {
   static contextType = Context;
 

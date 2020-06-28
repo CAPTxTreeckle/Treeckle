@@ -8,12 +8,13 @@ import "../../../styles/ScrollableTable.scss";
 import ImageUploader from "../../common/ImageUploader";
 import StatusBar from "../../common/StatusBar";
 import { Status } from "../../custom-typings/status-type";
+import { Event } from "../../custom-typings/event-types";
 
 type EventId = string;
 
 function EventsTable() {
   const userContext = useContext(Context);
-  const [allEvents, setAllEvents] = useState([]);
+  const [allEvents, setAllEvents] = useState<Event[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [image, setImage] = useState<string | Blob>();
   const [status, setStatus] = useState<Status>(); // {success: boolean, message: string}
@@ -91,8 +92,7 @@ function EventsTable() {
       });
   };
 
-  //TODO: rectify type for data
-  const renderBodyRow = (data: any, index: any) => {
+  const renderBodyRow = (data: Event, index: any) => {
     const {
       attendees,
       attendeesNames,

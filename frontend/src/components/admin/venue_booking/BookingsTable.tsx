@@ -6,6 +6,7 @@ import StatusButton from "../../common/StatusButton";
 import { toDateTimeString } from "../../../util/DateUtil";
 import { CONSOLE_LOGGING } from "../../../DevelopmentView";
 import "../../../styles/ScrollableTable.scss";
+import { Booking } from "../../custom-typings/booking-types";
 
 function BookingsTable() {
   //TODO: rectify type for requests
@@ -74,7 +75,8 @@ function BookingsTable() {
       });
   };
 
-  const renderBodyRow = (data: any, index: number) => {
+  const renderBodyRow = (data: Booking, index: number) => {
+    console.log("DATA:", data);
     const {
       createdByName,
       createdByEmail,

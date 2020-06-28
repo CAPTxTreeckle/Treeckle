@@ -11,8 +11,6 @@ import UserMenu from "./UserMenu";
 import { DEVELOPMENT_VIEW } from "../DevelopmentView";
 import "../styles/ContainerScrollBar.scss";
 
-//TODO: Same props as DesktopNavigationBar, can export and replace after
-//identifying return type of getWidth
 type Props = {
   getWidth: () => any;
   children: any;
